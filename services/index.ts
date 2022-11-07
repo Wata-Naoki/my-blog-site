@@ -133,3 +133,30 @@ export const getCategories = async () => {
     return result.categories;
   }
 };
+
+export const submitComment = async (obj: any) => {
+  const result = await fetch("/api/comments", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(obj),
+  });
+  return result.json();
+};
+
+export const getComments = async (slug: any) => {
+  const query = gql`
+    query GetComments($slug: String!) {
+      comments(where: { post: { slug: $slug } }) {
+        name
+        createdAt
+        comment
+      }
+    }
+  `;
+  if (graphqlAPI) {
+    const result = await request(graphqlAPI, query, { slug });
+    return result.comments;
+  }
+};
