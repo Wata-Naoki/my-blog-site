@@ -33,19 +33,21 @@ const CommentsForm = ({ slug }: any) => {
       comment,
       slug,
     };
-    if (storeData) {
-      window.localStorage.setItem("name", name);
-      window.localStorage.setItem("email", email);
-    } else {
-      window.localStorage.removeItem("name");
-      window.localStorage.removeItem("email");
+    if (typeof window === "object") {
+      if (storeData) {
+        window.localStorage.setItem("name", name);
+        window.localStorage.setItem("email", email);
+      } else {
+        window.localStorage.removeItem("name");
+        window.localStorage.removeItem("email");
+      }
+      submitComment(commentObj).then((res) => {
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 3000);
+      });
     }
-    submitComment(commentObj).then((res) => {
-      setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 3000);
-    });
   };
 
   return (
