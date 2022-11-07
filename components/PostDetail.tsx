@@ -57,6 +57,7 @@ const PostDetail = ({ post }: Props) => {
             height={obj.height}
             width={obj.width}
             src={obj.src}
+            className="w-auto mx-auto max-h-96"
           />
         );
       default:

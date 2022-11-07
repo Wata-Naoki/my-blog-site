@@ -8,7 +8,7 @@ const Categories = [
 ];
 
 const Header = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<any>([]);
   useEffect(() => {
     getCategories().then((newCategories) => setCategories(newCategories));
   }, []);
@@ -23,10 +23,10 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden md:float-left md:contents">
-          {Categories.map((category, index) => (
-            <Link href={`/category/${category.slug}`} key={index}>
+          {categories?.map((category: any, index: any) => (
+            <Link href={`/category/${category?.slug}`} key={index}>
               <span className="mt-2 ml-4 font-semibold text-white align-middle cursor-pointer md:float-right">
-                {category.name}
+                {category?.name}
               </span>
             </Link>
           ))}
