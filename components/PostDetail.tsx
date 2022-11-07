@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import moment from "moment";
 import React from "react";
 import Image from "next/image";
@@ -50,7 +51,7 @@ const PostDetail = ({ post }: Props) => {
         );
       case "image":
         return (
-          <Image
+          <img
             key={index}
             alt={obj.title}
             height={obj.height}
@@ -65,7 +66,7 @@ const PostDetail = ({ post }: Props) => {
   return (
     <div className="pb-12 mb-8 bg-white rounded-lg shadow-lg lg:p-8">
       <div className="relative mb-6 overflow-hidden shadow-md">
-        <Image
+        <img
           src={post?.featuredImage?.url}
           alt={post?.title}
           className="object-center w-full rounded-t-lg"
@@ -74,10 +75,10 @@ const PostDetail = ({ post }: Props) => {
       <div className="px-4 lg:px-0">
         <div className="flex items-center w-full mb-8">
           <div className="flex items-center justify-center w-full mb-4 mr-8 lg:mb-0 lg:w-auto">
-            <Image
+            <img
               alt={post.author.name}
-              height="30"
-              width="30"
+              height="30px"
+              width="30px"
               src={post.author.photo.url}
               className="align-middle rounded-full"
             />
