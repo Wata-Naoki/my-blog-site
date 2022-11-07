@@ -6,11 +6,16 @@ import {
   Categories,
   PostDetail,
   Author,
+  Loader,
 } from "../../components";
 import { getPostDetails, getPosts } from "../../services";
-
+import { useRouter } from "next/router";
 const PostDetails = ({ post }: any) => {
   console.log(post);
+  const router = useRouter();
+  if (router.isFallback) {
+    return <Loader />;
+  }
   return (
     <div className="container px-10 mx-auto mb-8">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
@@ -48,6 +53,6 @@ export async function getStaticPaths() {
   const posts = await getPosts();
   return {
     paths: posts.map(({ node: { slug } }: any) => ({ params: { slug } })),
-    fallback: false,
+    fallback: true,
   };
 }
