@@ -2,6 +2,7 @@
 import React from "react";
 import moment from "moment";
 import Link from "next/link";
+import Image from "next/image";
 //postの型を定義
 type Post = {
   title: string;
@@ -27,10 +28,10 @@ const PostCard = ({ post }: any) => {
       </h1>
       <div className="items-center justify-center block w-full mb-8 text-center lg:flex">
         <div className="flex items-center justify-center w-full mb-4 mr-8 lg:mb-0 lg:w-auto">
-          <img
+          <Image
             alt={post.author.name}
-            height="30px"
-            width="30px"
+            height="30"
+            width="30"
             src={post.author.photo.url}
             className="align-middle rounded-full"
           />
