@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import moment from "momnet";
 import parse from "html-react-parser";
 import { getComments } from "../services";
+import moment from "moment";
 const Comments = ({ slug }: any) => {
   const [comments, setComments] = useState([]);
   useEffect(() => {

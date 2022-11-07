@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
-import moment from "momnet";
 import Link from "next/link";
 import { getRecentPosts, getSimilarPosts } from "../services";
+import moment from "moment";
 
 const PostWidget = ({ categories, slug }: any) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
