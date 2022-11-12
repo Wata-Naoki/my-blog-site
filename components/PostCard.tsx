@@ -9,7 +9,6 @@ type Post = {
 };
 
 const PostCard = ({ post }: any) => {
-  console.log(post);
   return (
     <div className="p-0 pb-12 mb-8 bg-white rounded-lg shadow-lg lg:p-8">
       <div className="relative mb-6 overflow-hidden shadow-md pb-80">
@@ -28,14 +27,14 @@ const PostCard = ({ post }: any) => {
       <div className="items-center justify-center block w-full mb-8 text-center lg:flex">
         <div className="flex items-center justify-center w-full mb-4 mr-8 lg:mb-0 lg:w-auto">
           <img
-            alt={post.author.name}
+            alt={post?.author?.name}
             height="30px"
             width="30px"
-            src={post.author.photo.url}
+            src={post?.author?.photo?.url}
             className="align-middle rounded-full"
           />
           <p className="inline ml-2 text-lg text-gray-700 align-middle">
-            {post.author.name}
+            {post?.author?.name}
           </p>
         </div>
         <div className="font-medium text-gray-700">
@@ -57,7 +56,7 @@ const PostCard = ({ post }: any) => {
         </div>
       </div>
       <p className="px-4 mb-8 text-lg font-normal text-center text-gray-700 lg:px-20">
-        {post.excerpt}
+        {post?.excerpt}
       </p>
       <div className="text-center">
         <Link href={`/post/${post.slug}`}>
