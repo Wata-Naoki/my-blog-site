@@ -15,6 +15,14 @@ const PostDetail = ({ post }: Props) => {
         modifiedText = <b key={index}>{text}</b>;
       }
 
+      if (obj.href) {
+        modifiedText = (
+          <a href={obj.href} key={index} className="underline text-zinc-400">
+            {obj.children[0].text}
+          </a>
+        );
+      }
+
       if (obj.italic) {
         modifiedText = <em key={index}>{text}</em>;
       }

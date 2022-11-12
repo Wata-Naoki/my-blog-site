@@ -2,10 +2,11 @@ import { request, gql } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
+//初期の記事一覧を表示するためのクエリ。paginationを使おう。
 export const getPosts = async () => {
   const query = gql`
     query MyQuery {
-      postsConnection {
+      postsConnection(orderBy: createdAt_DESC) {
         edges {
           node {
             author {
@@ -78,7 +79,7 @@ export const getPostDetails = async (slug: any) => {
 export const getRecentPosts = async () => {
   const query = gql`
     query GetPostDetails(){
-        posts(orderBy: createdAt_ASC, last: 3) {
+        posts(orderBy: createdAt_DESC, last: 3) {
           title
           featuredImage {
             url
@@ -158,5 +159,66 @@ export const getComments = async (slug: any) => {
   if (graphqlAPI) {
     const result = await request(graphqlAPI, query, { slug });
     return result.comments;
+  }
+};
+export const getFeaturedPosts = async () => {
+  const query = gql`
+    query GetFeaturedPosts {
+      posts(where: { featuredPost: true }, orderBy: createdAt_DESC) {
+        title
+        slug
+        createdAt
+        featuredImage {
+          url
+        }
+        author {
+          name
+          photo {
+            url
+          }
+        }
+      }
+    }
+  `;
+  if (graphqlAPI) {
+    const result = await request(graphqlAPI, query);
+    return result.posts;
+  }
+};
+export const getCategoryPost = async (slug: any) => {
+  const query = gql`
+    query GetCategoryPost($slug: String!) {
+      postsConnection(where: { categories_some: { slug: $slug } }) {
+        edges {
+          cursor
+          node {
+            author {
+              bio
+              name
+              id
+              photo {
+                url
+              }
+            }
+            createdAt
+            slug
+            title
+            excerpt
+            featuredImage {
+              url
+            }
+            categories {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  if (graphqlAPI) {
+    const result = await request(graphqlAPI, query, { slug });
+    return result.postsConnection.edges;
   }
 };
