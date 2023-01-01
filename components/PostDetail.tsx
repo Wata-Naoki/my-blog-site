@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 type Props = {
   post: any;
 };
 
 const PostDetail = ({ post }: Props) => {
+  // boolean state
+  const [isExpanded, setIsExpanded] = React.useState(false);
   const getContentFragment = (index: any, text: any, obj?: any, type?: any) => {
     let modifiedText = text;
 
@@ -72,6 +74,7 @@ const PostDetail = ({ post }: Props) => {
         return modifiedText;
     }
   };
+
   return (
     <div className="pb-12 mb-8 bg-white rounded-lg shadow-lg lg:p-8">
       <div className="relative mb-6 overflow-hidden shadow-md">
@@ -85,14 +88,14 @@ const PostDetail = ({ post }: Props) => {
         <div className="flex items-center w-full mb-8">
           <div className="flex items-center justify-center w-full mb-4 mr-8 lg:mb-0 lg:w-auto">
             <img
-              alt={post.author.name}
+              alt={post?.author?.name}
               height="30px"
               width="30px"
-              src={post.author.photo.url}
+              src={post?.author?.photo?.url}
               className="align-middle rounded-full"
             />
             <p className="inline ml-2 text-lg text-gray-700 align-middle">
-              {post.author.name}
+              {post?.author?.name}
             </p>
           </div>
           <div className="font-medium text-gray-700">
@@ -114,8 +117,8 @@ const PostDetail = ({ post }: Props) => {
           </div>
         </div>
         <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
-        {post.content.raw.children.map((typeObj: any, index: number) => {
-          const children = typeObj.children.map(
+        {post?.content?.raw?.children?.map((typeObj: any, index: number) => {
+          const children = typeObj?.children?.map(
             (item: any, itemindex: number) =>
               getContentFragment(itemindex, item.text, item)
           );
