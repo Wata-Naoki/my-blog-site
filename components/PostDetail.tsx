@@ -35,9 +35,41 @@ const PostDetail = ({ post }: Props) => {
     }
 
     switch (type) {
+      // haedings 2
+      case "heading-two":
+        return (
+          <h2 key={index} className="py-2 pl-4 mb-10 text-3xl border-l-4 mt-14">
+            {modifiedText}
+          </h2>
+        );
+
+      // bulleted-listを扱えるようにしたい
+
+      // list-itemを扱えるようにしたい
+
+      // // list-item-child
+      // case "list-item-child":
+
+      // // numbered-list
+      // case "numbered-list":
+
+      // block-quote
+
+      case "block-quote":
+        return (
+          <blockquote
+            key={index}
+            className="py-2 pl-4 mb-10 text-2xl border-l-4 mt-14"
+          >
+            {modifiedText.map((item: any, i: any) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </blockquote>
+        );
+
       case "heading-three":
         return (
-          <h3 key={index} className="mb-4 text-xl font-semibold">
+          <h3 key={index} className="py-2 pl-4 mb-10 text-2xl border-l-4 mt-14">
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -45,7 +77,7 @@ const PostDetail = ({ post }: Props) => {
         );
       case "paragraph":
         return (
-          <p key={index} className="mb-8">
+          <p key={index} className="my-4 leading-8 ">
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -53,7 +85,7 @@ const PostDetail = ({ post }: Props) => {
         );
       case "heading-four":
         return (
-          <h4 key={index} className="mb-4 font-semibold text-md">
+          <h4 key={index} className="my-12 font-semibold text-md">
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -67,7 +99,7 @@ const PostDetail = ({ post }: Props) => {
             height={obj.height}
             width={obj.width}
             src={obj.src}
-            className="w-auto mx-auto max-h-96"
+            className="w-auto mx-auto my-8 max-h-96"
           />
         );
       default:
@@ -116,7 +148,9 @@ const PostDetail = ({ post }: Props) => {
             <span>{moment(post?.createdAt).format("MMM DD YYYY")}</span>
           </div>
         </div>
-        <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
+        <h1 className="pb-4 mt-10 mb-12 text-3xl font-semibold border-b-2">
+          {post.title}
+        </h1>
         {post?.content?.raw?.children?.map((typeObj: any, index: number) => {
           const children = typeObj?.children?.map(
             (item: any, itemindex: number) =>
