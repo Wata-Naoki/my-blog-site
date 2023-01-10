@@ -67,9 +67,32 @@ const PostDetail = ({ post }: Props) => {
           </blockquote>
         );
 
+      case "code-block":
+        return (
+          <div className="px-6 py-6 text-sm bg-gray-200 rounded">
+            {modifiedText.map((item: any, i: any) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </div>
+        );
+      // case "bulleted-list":
+      //   return (
+      //     <div
+      //       key={index}
+      //       className="py-2 pl-4 mb-10 text-2xl border-l-4 mt-14"
+      //     >
+      //       {modifiedText.map((item: any, i: any) => (
+      //         <React.Fragment key={i}>{item}</React.Fragment>
+      //       ))}
+      //     </div>
+      //   );
+
       case "heading-three":
         return (
-          <h3 key={index} className="py-2 pl-4 mb-10 text-2xl border-l-4 mt-14">
+          <h3
+            key={index}
+            className="py-2 pl-4 mb-10 text-2xl font-semibold border-l-4 mt-14"
+          >
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -77,7 +100,12 @@ const PostDetail = ({ post }: Props) => {
         );
       case "paragraph":
         return (
-          <p key={index} className="my-4 leading-8 ">
+          <p
+            key={index}
+            className={`my-4 leading-8 ${
+              modifiedText == "" ? "my-10 leading-8" : ""
+            }`}
+          >
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -85,7 +113,7 @@ const PostDetail = ({ post }: Props) => {
         );
       case "heading-four":
         return (
-          <h4 key={index} className="my-12 font-semibold text-md">
+          <h4 key={index} className="my-12 text-xl font-semibold">
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -151,14 +179,16 @@ const PostDetail = ({ post }: Props) => {
         <h1 className="pb-4 mt-10 mb-12 text-3xl font-semibold border-b-2">
           {post.title}
         </h1>
-        {post?.content?.raw?.children?.map((typeObj: any, index: number) => {
-          const children = typeObj?.children?.map(
-            (item: any, itemindex: number) =>
-              getContentFragment(itemindex, item.text, item)
-          );
+        <div className="whitespace-pre-wrap">
+          {post?.content?.raw?.children?.map((typeObj: any, index: number) => {
+            const children = typeObj?.children?.map(
+              (item: any, itemindex: number) =>
+                getContentFragment(itemindex, item.text, item)
+            );
 
-          return getContentFragment(index, children, typeObj, typeObj.type);
-        })}
+            return getContentFragment(index, children, typeObj, typeObj.type);
+          })}
+        </div>
       </div>
     </div>
   );
