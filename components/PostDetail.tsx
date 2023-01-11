@@ -2,6 +2,8 @@
 import moment from "moment";
 import React, { useEffect } from "react";
 import Image from "next/image";
+import { BlockQuote } from "./ui/BlockQuote";
+import { CodeBlock } from "./ui/CodeBlock";
 type Props = {
   post: any;
 };
@@ -11,6 +13,7 @@ const PostDetail = ({ post }: Props) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
   const getContentFragment = (index: any, text: any, obj?: any, type?: any) => {
     let modifiedText = text;
+    console.log(modifiedText);
 
     if (obj) {
       if (obj.bold) {
@@ -57,23 +60,20 @@ const PostDetail = ({ post }: Props) => {
 
       case "block-quote":
         return (
-          <blockquote
-            key={index}
-            className="py-2 pl-4 mb-10 text-2xl border-l-4 mt-14"
-          >
+          <BlockQuote key={index}>
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
-          </blockquote>
+          </BlockQuote>
         );
 
       case "code-block":
         return (
-          <div className="px-6 py-6 text-sm bg-gray-200 rounded">
+          <CodeBlock modifiedText={modifiedText}>
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
-          </div>
+          </CodeBlock>
         );
       // case "bulleted-list":
       //   return (
@@ -113,7 +113,7 @@ const PostDetail = ({ post }: Props) => {
         );
       case "heading-four":
         return (
-          <h4 key={index} className="my-12 text-xl font-semibold">
+          <h4 key={index} className="my-12 font-semibold">
             {modifiedText.map((item: any, i: any) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
