@@ -48,7 +48,7 @@ export async function getStaticProps({ params }: any) {
   const data = await getPostDetails(params.slug);
   return {
     props: { post: data },
-    revalidate: 1,
+    revalidate: 60,
   };
 }
 export async function getStaticPaths() {
