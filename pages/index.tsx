@@ -10,7 +10,6 @@ const posts = [
 ];
 
 export default function Home({ posts }: any) {
-  console.log(posts);
   return (
     <div className="container px-10 mx-auto mb-8 ">
       <Head>

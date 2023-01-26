@@ -13,7 +13,6 @@ const PostDetail = ({ post }: Props) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
   const getContentFragment = (index: any, text: any, obj?: any, type?: any) => {
     let modifiedText = text;
-    console.log(modifiedText);
 
     if (obj) {
       if (obj.bold) {
@@ -38,10 +37,13 @@ const PostDetail = ({ post }: Props) => {
     }
 
     switch (type) {
-      // haedings 2
+      // headings 2
       case "heading-two":
         return (
-          <h2 key={index} className="py-2 pl-4 mb-10 text-3xl border-l-4 mt-14">
+          <h2
+            key={index}
+            className="py-2 pl-4 mb-10 text-3xl font-bold border-l-4 mt-14"
+          >
             {modifiedText}
           </h2>
         );
@@ -129,6 +131,18 @@ const PostDetail = ({ post }: Props) => {
             src={obj.src}
             className="w-auto mx-auto my-8 max-h-96"
           />
+        );
+      case "video":
+        return (
+          <video key={index} controls className="w-auto mx-auto my-8">
+            <source
+              key={index}
+              height={obj.height}
+              width={obj.width}
+              src={obj.src}
+              className="w-auto mx-auto my-8 max-h-96"
+            />
+          </video>
         );
       default:
         return modifiedText;

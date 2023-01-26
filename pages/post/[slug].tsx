@@ -12,7 +12,6 @@ import {
 import { getPostDetails, getPosts } from "../../services";
 
 const PostDetails = ({ post }: any) => {
-  console.log(post);
   const router = useRouter();
   if (router.isFallback) {
     return <Loader />;
