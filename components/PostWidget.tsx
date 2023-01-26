@@ -4,7 +4,24 @@ import Link from "next/link";
 import { getRecentPosts, getSimilarPosts } from "../services";
 import moment from "moment";
 
-const PostWidget = ({ categories, slug }: any) => {
+export type PostWidget = {
+  categories?: {
+    name: string;
+    slug: string;
+  };
+  slug?: string;
+};
+
+export type RelatedPosts = {
+  title: string;
+  slug: string;
+  featuredImage: {
+    url: string;
+  };
+  createdAt: string;
+};
+
+const PostWidget = ({ categories, slug }: PostWidget) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
   useEffect(() => {
     if (slug) {
@@ -20,7 +37,7 @@ const PostWidget = ({ categories, slug }: any) => {
       <h3 className="pb-4 mb-8 text-lg font-semibold border-b">
         {slug ? "Related Posts" : "Recent Posts"}
       </h3>
-      {relatedPosts?.map((post: any, index: number) => (
+      {relatedPosts?.map((post: RelatedPosts, index: number) => (
         <div className="flex items-center w-full my-2" key={post.title}>
           <div className="flex-none w-16">
             <img

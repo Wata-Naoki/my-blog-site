@@ -4,10 +4,6 @@ import styles from "../styles/Home.module.css";
 import { PostCard, Categories, PostWidget } from "../components";
 import { getPosts } from "../services";
 import { FeaturedPosts } from "../sections";
-const posts = [
-  { title: "React Testing", excerpt: "Learn React Testing" },
-  { title: "React with Tailwind", excerpt: "Learn React with Tailwind" },
-];
 
 export default function Home({ posts }: any) {
   return (

@@ -3,12 +3,25 @@ import React from "react";
 import moment from "moment";
 import Link from "next/link";
 //postの型を定義
-type Post = {
-  title: string;
-  excerpt: string;
+export type Post = {
+  post: {
+    slug: string;
+    featuredImage: {
+      url: string;
+    };
+    author: {
+      name: string;
+      photo: {
+        url: string;
+      };
+    };
+    createdAt: string;
+    title: string;
+    excerpt: string;
+  };
 };
 
-const PostCard = ({ post }: any) => {
+const PostCard = ({ post }: Post) => {
   return (
     <div className="p-0 pb-12 mb-8 bg-white rounded-lg shadow-lg lg:p-8">
       <div className="relative mb-6 overflow-hidden shadow-md pb-80">

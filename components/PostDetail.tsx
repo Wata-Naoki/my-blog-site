@@ -4,13 +4,48 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { BlockQuote } from "./ui/BlockQuote";
 import { CodeBlock } from "./ui/CodeBlock";
-type Props = {
-  post: any;
+export type PostDetail = {
+  post: {
+    title: string;
+    author: {
+      name: string;
+      bio: string;
+      photo: {
+        url: string;
+      };
+    };
+    coverImage: {
+      url: string;
+    };
+    date: string;
+    featuredImage: {
+      url: string;
+    };
+    slug: string;
+    tags: string[];
+    createdAt: string;
+    publishedAt: string;
+    content: {
+      html: string;
+      text: string;
+      raw: {
+        type: string;
+        children: {
+          text: string;
+          bold: boolean;
+          italic: boolean;
+          underline: boolean;
+          href: string;
+        }[];
+      };
+    };
+  };
 };
 
-const PostDetail = ({ post }: Props) => {
+const PostDetail = ({ post }: PostDetail) => {
   // boolean state
   const [isExpanded, setIsExpanded] = React.useState(false);
+  // TODO: any型の修正
   const getContentFragment = (index: any, text: any, obj?: any, type?: any) => {
     let modifiedText = text;
 
@@ -63,7 +98,7 @@ const PostDetail = ({ post }: Props) => {
       case "block-quote":
         return (
           <BlockQuote key={index}>
-            {modifiedText.map((item: any, i: any) => (
+            {modifiedText.map((item: string, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
           </BlockQuote>
@@ -72,7 +107,7 @@ const PostDetail = ({ post }: Props) => {
       case "code-block":
         return (
           <CodeBlock modifiedText={modifiedText}>
-            {modifiedText.map((item: any, i: any) => (
+            {modifiedText.map((item: string, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
           </CodeBlock>
@@ -83,7 +118,7 @@ const PostDetail = ({ post }: Props) => {
       //       key={index}
       //       className="py-2 pl-4 mb-10 text-2xl border-l-4 mt-14"
       //     >
-      //       {modifiedText.map((item: any, i: any) => (
+      //       {modifiedText.map((item: string, i: number) => (
       //         <React.Fragment key={i}>{item}</React.Fragment>
       //       ))}
       //     </div>
@@ -95,7 +130,7 @@ const PostDetail = ({ post }: Props) => {
             key={index}
             className="py-2 pl-4 mb-10 text-2xl font-semibold border-l-4 mt-14"
           >
-            {modifiedText.map((item: any, i: any) => (
+            {modifiedText.map((item: string, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
           </h3>
@@ -108,7 +143,7 @@ const PostDetail = ({ post }: Props) => {
               modifiedText == "" ? "my-10 leading-8" : ""
             }`}
           >
-            {modifiedText.map((item: any, i: any) => (
+            {modifiedText.map((item: string, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
           </p>
@@ -116,7 +151,7 @@ const PostDetail = ({ post }: Props) => {
       case "heading-four":
         return (
           <h4 key={index} className="my-12 font-semibold">
-            {modifiedText.map((item: any, i: any) => (
+            {modifiedText.map((item: string, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
           </h4>

@@ -7,8 +7,13 @@ const Categories = [
   { name: "Web Development", slug: "web-dev" },
 ];
 
+export type Categories = {
+  name: string;
+  slug: string;
+};
+
 const Header = () => {
-  const [categories, setCategories] = useState<any>([]);
+  const [categories, setCategories] = useState<Categories[]>([]);
   useEffect(() => {
     getCategories().then((newCategories) => setCategories(newCategories));
   }, []);
@@ -23,7 +28,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden md:float-left md:contents">
-          {categories?.map((category: any, index: any) => (
+          {categories?.map((category: Categories, index: number) => (
             <Link href={`/category/${category?.slug}`} key={index}>
               <span className="mt-2 ml-4 font-semibold text-white align-middle cursor-pointer md:float-right">
                 {category?.name}
