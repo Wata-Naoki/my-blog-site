@@ -23,5 +23,7 @@ NEXT_PUBLIC_GRAPHCMS_TOKEN=
 
 ## ライブラリ一覧
 
-・トップページのカルーセル実装に使ったライブラリ  
+・トップページのカルーセル実装に使ったライブラリ
+
+
 https://www.npmjs.com/package/react-multi-carousel
