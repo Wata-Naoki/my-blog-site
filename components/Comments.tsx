@@ -2,7 +2,19 @@ import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { getComments } from "../services";
 import moment from "moment";
-const Comments = ({ slug }: any) => {
+
+// commentsの型定義を追加
+export type Comments = {
+  name: string;
+  comment: string;
+  createdAt: string;
+};
+
+type CommentsSlug = {
+  slug: string;
+};
+
+const Comments = ({ slug }: CommentsSlug) => {
   const [comments, setComments] = useState([]);
   useEffect(() => {
     getComments(slug).then((result) => {
@@ -16,7 +28,7 @@ const Comments = ({ slug }: any) => {
           <h3 className="pb-4 mb-8 text-xl font-semibold border-b">
             {comments.length} Comments
           </h3>
-          {comments.map((comment: any, index: any) => (
+          {comments.map((comment: Comments, index: number) => (
             <div key={index} className="mb-8">
               <p className="mb-4">
                 <span className="">{comment.name}</span> on{" "}

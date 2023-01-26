@@ -1,7 +1,14 @@
 import React from "react";
 import Image from "next/image";
 type Props = {
-  author: any;
+  //authorの型を定義
+  author: {
+    name: string;
+    bio: string;
+    photo: {
+      url: string;
+    };
+  };
 };
 const Author = ({ author }: Props) => {
   return (

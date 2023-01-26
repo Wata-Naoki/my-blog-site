@@ -4,7 +4,25 @@ import Carousel from "react-multi-carousel";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-const FeaturedPostCard = ({ post }: any) => {
+
+export type FeaturedPost = {
+  post: {
+    title: string;
+    slug: string;
+    createdAt: string;
+    author: {
+      name: string;
+      photo: {
+        url: string;
+      };
+    };
+    featuredImage: {
+      url: string;
+    };
+  };
+};
+
+const FeaturedPostCard = ({ post }: FeaturedPost) => {
   return (
     <div className="relative transition duration-500 h-72 hover:shadow-2xl hover:opacity-80">
       <div
