@@ -40,7 +40,11 @@ export const getPosts = async () => {
   }
 };
 
-export const getPostDetails = async (slug: any) => {
+type Slug = {
+  slug: string;
+};
+
+export const getPostDetails = async (slug: Slug) => {
   const query = gql`
     query GetPostDetails($slug: String!) {
       post(where: { slug: $slug }) {

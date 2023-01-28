@@ -1,13 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { getCategories } from "../services";
-
-// categoriesの型定義を追加
-export type Categories = {
-  name: string;
-  slug: string;
-};
-
+import { Categories } from "../types/types";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {

@@ -3,24 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getRecentPosts, getSimilarPosts } from "../services";
 import moment from "moment";
-
-export type PostWidget = {
-  categories?: {
-    name: string;
-    slug: string;
-  };
-  slug?: string;
-};
-
-export type RelatedPosts = {
-  title: string;
-  slug: string;
-  featuredImage: {
-    url: string;
-  };
-  createdAt: string;
-};
-
+import { PostWidget, RelatedPosts } from "../types/types";
 const PostWidget = ({ categories, slug }: PostWidget) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
   useEffect(() => {

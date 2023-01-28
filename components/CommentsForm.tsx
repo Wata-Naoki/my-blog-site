@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { submitComment } from "../services";
 
 const CommentsForm = ({ slug }: any) => {
+  // TODO: 処理が長いので、カスタムフックに切り出す
   const [error, setError] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -88,7 +89,7 @@ const CommentsForm = ({ slug }: any) => {
             className="ml-2 text-gray-500 cursor-pointer"
             htmlFor="storeData"
           >
-            Save my email and name for the next time I comment.
+            Save my email and name.
           </label>
         </div>
       </div>

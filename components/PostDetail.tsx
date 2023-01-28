@@ -1,189 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import moment from "moment";
 import React, { useEffect } from "react";
-import Image from "next/image";
-import { BlockQuote } from "./ui/BlockQuote";
-import { CodeBlock } from "./ui/CodeBlock";
-export type PostDetail = {
-  post: {
-    title: string;
-    author: {
-      name: string;
-      bio: string;
-      photo: {
-        url: string;
-      };
-    };
-    coverImage: {
-      url: string;
-    };
-    date: string;
-    featuredImage: {
-      url: string;
-    };
-    slug: string;
-    tags: string[];
-    createdAt: string;
-    publishedAt: string;
-    content: {
-      html: string;
-      text: string;
-      raw: {
-        type: string;
-        children: {
-          text: string;
-          bold: boolean;
-          italic: boolean;
-          underline: boolean;
-          href: string;
-        }[];
-      };
-    };
-  };
-};
-
+import { PostDetail } from "../types/types";
+import { getContentFragment } from "./helpers/getContentFragment";
 const PostDetail = ({ post }: PostDetail) => {
   // boolean state
   const [isExpanded, setIsExpanded] = React.useState(false);
   // TODO: any型の修正
-  const getContentFragment = (index: any, text: any, obj?: any, type?: any) => {
-    let modifiedText = text;
-
-    if (obj) {
-      if (obj.bold) {
-        modifiedText = <b key={index}>{text}</b>;
-      }
-
-      if (obj.href) {
-        modifiedText = (
-          <a href={obj.href} key={index} className="underline text-zinc-400">
-            {obj.children[0].text}
-          </a>
-        );
-      }
-
-      if (obj.italic) {
-        modifiedText = <em key={index}>{text}</em>;
-      }
-
-      if (obj.underline) {
-        modifiedText = <u key={index}>{text}</u>;
-      }
-    }
-
-    switch (type) {
-      // headings 2
-      case "heading-two":
-        return (
-          <h2
-            key={index}
-            className="py-2 pl-4 mb-10 text-3xl font-bold border-l-4 mt-14"
-          >
-            {modifiedText}
-          </h2>
-        );
-
-      // bulleted-listを扱えるようにしたい
-
-      // list-itemを扱えるようにしたい
-
-      // // list-item-child
-      // case "list-item-child":
-
-      // // numbered-list
-      // case "numbered-list":
-
-      // block-quote
-
-      case "block-quote":
-        return (
-          <BlockQuote key={index}>
-            {modifiedText.map((item: string, i: number) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </BlockQuote>
-        );
-
-      case "code-block":
-        return (
-          <CodeBlock modifiedText={modifiedText}>
-            {modifiedText.map((item: string, i: number) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </CodeBlock>
-        );
-      // case "bulleted-list":
-      //   return (
-      //     <div
-      //       key={index}
-      //       className="py-2 pl-4 mb-10 text-2xl border-l-4 mt-14"
-      //     >
-      //       {modifiedText.map((item: string, i: number) => (
-      //         <React.Fragment key={i}>{item}</React.Fragment>
-      //       ))}
-      //     </div>
-      //   );
-
-      case "heading-three":
-        return (
-          <h3
-            key={index}
-            className="py-2 pl-4 mb-10 text-2xl font-semibold border-l-4 mt-14"
-          >
-            {modifiedText.map((item: string, i: number) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </h3>
-        );
-      case "paragraph":
-        return (
-          <p
-            key={index}
-            className={`my-4 leading-8 ${
-              modifiedText == "" ? "my-10 leading-8" : ""
-            }`}
-          >
-            {modifiedText.map((item: string, i: number) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </p>
-        );
-      case "heading-four":
-        return (
-          <h4 key={index} className="my-12 font-semibold">
-            {modifiedText.map((item: string, i: number) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </h4>
-        );
-      case "image":
-        return (
-          <img
-            key={index}
-            alt={obj.title}
-            height={obj.height}
-            width={obj.width}
-            src={obj.src}
-            className="w-auto mx-auto my-8 max-h-96"
-          />
-        );
-      case "video":
-        return (
-          <video key={index} controls className="w-auto mx-auto my-8">
-            <source
-              key={index}
-              height={obj.height}
-              width={obj.width}
-              src={obj.src}
-              className="w-auto mx-auto my-8 max-h-96"
-            />
-          </video>
-        );
-      default:
-        return modifiedText;
-    }
-  };
-
   return (
     <div className="pb-12 mb-8 bg-white rounded-lg shadow-lg lg:p-8">
       <div className="relative mb-6 overflow-hidden shadow-md">
@@ -231,10 +54,9 @@ const PostDetail = ({ post }: PostDetail) => {
         <div className="whitespace-pre-wrap">
           {post?.content?.raw?.children?.map((typeObj: any, index: number) => {
             const children = typeObj?.children?.map(
-              (item: any, itemindex: number) =>
-                getContentFragment(itemindex, item.text, item)
+              (item: any, itemIndex: number) =>
+                getContentFragment(itemIndex, item.text, item)
             );
-
             return getContentFragment(index, children, typeObj, typeObj.type);
           })}
         </div>
