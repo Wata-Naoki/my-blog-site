@@ -1,16 +1,7 @@
 import React from "react";
 import Image from "next/image";
-type Props = {
-  //authorの型を定義
-  author: {
-    name: string;
-    bio: string;
-    photo: {
-      url: string;
-    };
-  };
-};
-const Author = ({ author }: Props) => {
+import { Author } from "../types/types";
+const Author = ({ author }: Author) => {
   return (
     <div className="relative p-12 mt-20 mb-8 text-center bg-black rounded-lg bg-opacity-20">
       <div className="absolute left-0 right-0 -top-14">

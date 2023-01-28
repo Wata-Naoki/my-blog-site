@@ -2,18 +2,7 @@ import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { getComments } from "../services";
 import moment from "moment";
-
-// commentsの型定義を追加
-export type Comments = {
-  name: string;
-  comment: string;
-  createdAt: string;
-};
-
-type CommentsSlug = {
-  slug: string;
-};
-
+import { Comments, CommentsSlug } from "../types/types";
 const Comments = ({ slug }: CommentsSlug) => {
   const [comments, setComments] = useState([]);
   useEffect(() => {

@@ -1,16 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { getCategories } from "../services";
-
-const Categories = [
-  { name: "React", slug: "react" },
-  { name: "Web Development", slug: "web-dev" },
-];
-
-export type Categories = {
-  name: string;
-  slug: string;
-};
+import { Categories } from "../types/types";
 
 const Header = () => {
   const [categories, setCategories] = useState<Categories[]>([]);

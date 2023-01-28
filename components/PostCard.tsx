@@ -2,24 +2,7 @@
 import React from "react";
 import moment from "moment";
 import Link from "next/link";
-//postの型を定義
-export type Post = {
-  post: {
-    slug: string;
-    featuredImage: {
-      url: string;
-    };
-    author: {
-      name: string;
-      photo: {
-        url: string;
-      };
-    };
-    createdAt: string;
-    title: string;
-    excerpt: string;
-  };
-};
+import { Post } from "../types/types";
 
 const PostCard = ({ post }: Post) => {
   return (

@@ -4,23 +4,7 @@ import Carousel from "react-multi-carousel";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-
-export type FeaturedPost = {
-  post: {
-    title: string;
-    slug: string;
-    createdAt: string;
-    author: {
-      name: string;
-      photo: {
-        url: string;
-      };
-    };
-    featuredImage: {
-      url: string;
-    };
-  };
-};
+import { FeaturedPost } from "../types/types";
 
 const FeaturedPostCard = ({ post }: FeaturedPost) => {
   return (
