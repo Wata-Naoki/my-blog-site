@@ -4,7 +4,11 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     workerThreads: false,
-    cpus: 1
+    cpus: 1,
+
+  },
+  images: {
+    unoptimized: true,
   },
 }
 

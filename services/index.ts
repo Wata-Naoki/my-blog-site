@@ -99,7 +99,7 @@ export const getRecentPosts = async () => {
   }
 };
 
-export const getSimilarPosts = async (categories: any, slug: any) => {
+export const getSimilarPosts = async (categories: any, slug: string) => {
   const query = gql`
     query GetPostDetails($slug: String!, $categories: [String!]) {
       posts(
@@ -150,7 +150,7 @@ export const submitComment = async (obj: any) => {
   return result.json();
 };
 
-export const getComments = async (slug: any) => {
+export const getComments = async (slug: string) => {
   const query = gql`
     query GetComments($slug: String!) {
       comments(where: { post: { slug: $slug } }) {
@@ -189,7 +189,7 @@ export const getFeaturedPosts = async () => {
     return result.posts;
   }
 };
-export const getCategoryPost = async (slug: any) => {
+export const getCategoryPost = async (slug: string) => {
   const query = gql`
     query GetCategoryPost($slug: String!) {
       postsConnection(where: { categories_some: { slug: $slug } }) {

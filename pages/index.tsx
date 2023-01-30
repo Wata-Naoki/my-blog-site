@@ -33,7 +33,6 @@ type Post = {
 };
 
 export default function Home({ posts }: Posts) {
-  console.log(posts);
   return (
     <div className="container px-10 mx-auto mb-8 ">
       <Head>

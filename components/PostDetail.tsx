@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import moment from "moment";
 import React, { useEffect } from "react";
-import { PostDetail } from "../types/types";
+import { PostDetail, TypeObj } from "../types/types";
 import { getContentFragment } from "./helpers/getContentFragment";
 const PostDetail = ({ post }: PostDetail) => {
   // boolean state
@@ -52,13 +52,15 @@ const PostDetail = ({ post }: PostDetail) => {
           {post.title}
         </h1>
         <div className="whitespace-pre-wrap">
-          {post?.content?.raw?.children?.map((typeObj: any, index: number) => {
-            const children = typeObj?.children?.map(
-              (item: any, itemIndex: number) =>
-                getContentFragment(itemIndex, item.text, item)
-            );
-            return getContentFragment(index, children, typeObj, typeObj.type);
-          })}
+          {post?.content?.raw?.children?.map(
+            (typeObj: TypeObj, index: number) => {
+              const children = typeObj?.children?.map(
+                (item: TypeObj, itemIndex: number) =>
+                  getContentFragment(itemIndex, item.text, item)
+              );
+              return getContentFragment(index, children, typeObj, typeObj.type);
+            }
+          )}
         </div>
       </div>
     </div>
