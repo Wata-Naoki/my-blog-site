@@ -114,3 +114,17 @@ export type Author = {
     };
   };
 };
+
+export type CommentsFormSlug = {
+  slug: string;
+};
+
+export type TypeObj = {
+  text: string;
+  bold: boolean;
+  italic: boolean;
+  underline: boolean;
+  href: string;
+  children?: TypeObj[];
+  type?: string;
+};

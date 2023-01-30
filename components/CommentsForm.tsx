@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { submitComment } from "../services";
+import { CommentsFormSlug } from "../types/types";
 
-const CommentsForm = ({ slug }: any) => {
+const CommentsForm = ({ slug }: CommentsFormSlug) => {
   // TODO: 処理が長いので、カスタムフックに切り出す
   const [error, setError] = useState(false);
   const [message, setMessage] = useState<string | null>(null);

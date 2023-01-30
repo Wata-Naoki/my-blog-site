@@ -3,7 +3,7 @@ import { BlockQuote } from "../ui/BlockQuote";
 import { CodeBlock } from "../ui/CodeBlock";
 
 export const getContentFragment = (
-  index: any,
+  index: number,
   text: any,
   obj?: any,
   type?: any
