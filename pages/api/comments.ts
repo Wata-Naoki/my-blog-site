@@ -44,7 +44,6 @@ export default async function comments(
       const result = await graphQLClient.request(query, req.body);
       return res.status(200).send(result);
     } catch (err: any) {
-      console.log(err);
       return res.status(500).send(err);
     }
   }

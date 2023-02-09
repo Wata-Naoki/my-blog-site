@@ -36,6 +36,9 @@ export type PostDetail = {
   };
 };
 
+export type Slug = {
+  slug: string;
+};
 //postの型を定義
 export type Post = {
   post: {
