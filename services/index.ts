@@ -1,12 +1,14 @@
 import { request, gql } from "graphql-request";
+import { Slug } from "../types/types";
+//DEFAULT_TAKE
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 //初期の記事一覧を表示するためのクエリ。paginationを使おう。
 export const getPosts = async () => {
   const query = gql`
-    query MyQuery {
-      postsConnection(orderBy: createdAt_DESC) {
+    query MyQuery($first: Int, $skip: Int) {
+      postsConnection(orderBy: createdAt_DESC, first: $first, skip: $skip) {
         edges {
           node {
             author {
@@ -40,8 +42,20 @@ export const getPosts = async () => {
   }
 };
 
-type Slug = {
-  slug: string;
+export const getPostsCount = async () => {
+  const query = gql`
+    query PostCount {
+      postsConnection {
+        aggregate {
+          count
+        }
+      }
+    }
+  `;
+  if (graphqlAPI) {
+    const result = await request(graphqlAPI, query);
+    return result.postsConnection.aggregate.count;
+  }
 };
 
 export const getPostDetails = async (slug: Slug) => {

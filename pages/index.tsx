@@ -2,14 +2,17 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { PostCard, Categories, PostWidget } from "../components";
-import { getPosts } from "../services";
+import { getPosts, getPostsCount } from "../services";
 import { FeaturedPosts } from "../sections";
+import { Pagination } from "../components/ui/Pagination";
+import { usePagination } from "../hooks/usePagination";
 
-type Posts = {
+export type Posts = {
   posts: Post[];
+  postCounts: PostCounts;
 };
 
-type Post = {
+export type Post = {
   node: {
     title: string;
     author: {
@@ -31,8 +34,23 @@ type Post = {
     }[];
   };
 };
+type PostCounts = {
+  count: number;
+};
 
-export default function Home({ posts }: Posts) {
+export default function Home({ posts, postCounts }: any) {
+  const {
+    take,
+    skip,
+    totalCount,
+    currentPage,
+    totalPage,
+    goNext,
+    goPrev,
+    goPage,
+    hasNextPage,
+    hasPrevPage,
+  } = usePagination({ totalCount: postCounts || 0 });
   return (
     <div className="container px-10 mx-auto mb-8 ">
       <Head>
@@ -41,9 +59,20 @@ export default function Home({ posts }: Posts) {
       <FeaturedPosts />
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
         <div className="col-span-1 lg:col-span-8">
-          {posts?.map((post: Post, index: number) => (
+          {posts?.slice(skip, skip + take).map((post: Post, index: number) => (
             <PostCard post={post.node} key={index} />
           ))}
+          <div>
+            <Pagination
+              totalPage={totalPage}
+              onPageClick={(num) => goPage(num)}
+              currentPage={currentPage}
+              onNextClick={goNext}
+              onPrevClick={goPrev}
+              showNext={hasNextPage}
+              showPrev={hasPrevPage}
+            />
+          </div>
         </div>
 
         <div className="col-span-1 lg:col-span-4">
@@ -57,10 +86,12 @@ export default function Home({ posts }: Posts) {
   );
 }
 
+// takeとskipを使って、ページネーションを実装する。getPostsの引数に入れる。
 export async function getStaticProps() {
-  const posts = (await getPosts()) || [];
+  const posts = await getPosts();
+  const postCounts = await getPostsCount();
   return {
-    props: { posts },
+    props: { posts, postCounts },
     revalidate: 60,
   };
 }
