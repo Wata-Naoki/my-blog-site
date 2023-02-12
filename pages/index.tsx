@@ -6,7 +6,12 @@ import { getPosts, getPostsCount } from "../services";
 import { FeaturedPosts } from "../sections";
 import { Pagination } from "../components/ui/Pagination";
 import { usePagination } from "../hooks/usePagination";
-
+import {
+  fadeInPopup,
+  pageTransition,
+  sectionPageTransition,
+} from "../components/animations/variants";
+import { motion } from "framer-motion";
 export type Posts = {
   posts: Post[];
   postCounts: PostCounts;
@@ -60,7 +65,9 @@ export default function Home({ posts, postCounts }: any) {
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
         <div className="col-span-1 lg:col-span-8">
           {posts?.slice(skip, skip + take).map((post: Post, index: number) => (
-            <PostCard post={post.node} key={index} />
+            <motion.div {...pageTransition} key={`${skip}-${index}`}>
+              <PostCard post={post.node} key={index} />
+            </motion.div>
           ))}
           <div>
             <Pagination

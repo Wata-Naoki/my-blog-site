@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./Header";
-
+import { motion } from "framer-motion";
+import { pageTransition } from "./animations/variants";
 type Props = {
   children: React.ReactNode;
 };
@@ -8,8 +9,13 @@ type Props = {
 const Layout: React.FC<Props> = ({ children }) => {
   return (
     <>
-      <Header />
-      {children}
+      <motion.div
+        className="flex flex-col items-center min-h-screen"
+        {...pageTransition}
+      >
+        <Header />
+        {children}
+      </motion.div>
     </>
   );
 };
